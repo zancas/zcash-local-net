@@ -51,6 +51,8 @@ pub struct ZcashdConfig {
     pub miner_address: Option<&'static str>,
     /// Chain cache location. If `None`, launches a new chain.
     pub chain_cache: Option<PathBuf>,
+    /// data directory location. If `None`, uses TempDir.
+    pub data_dir: Option<PathBuf>,
 }
 
 /// Zebrad configuration
@@ -76,6 +78,8 @@ pub struct ZebradConfig {
     pub miner_address: &'static str,
     /// Chain cache location. If `None`, launches a new chain.
     pub chain_cache: Option<PathBuf>,
+    /// data directory location. If `None`, uses TempDir.
+    pub data_dir: Option<PathBuf>,
     /// Network type.
     ///
     /// Can be used for testing against cached testnet / mainnet chains where large chains are needed.
@@ -92,6 +96,7 @@ impl Default for ZebradConfig {
             activation_heights: network::ActivationHeights::default(),
             miner_address: &ZEBRAD_DEFAULT_MINER,
             chain_cache: None,
+            data_dir: None,
             network: Network::Regtest,
         }
     }
@@ -136,7 +141,7 @@ pub trait Validator: Sized {
     fn logs_dir(&self) -> &TempDir;
 
     /// Get temporary data directory.
-    fn data_dir(&self) -> &TempDir;
+    fn data_dir(&self) -> &PathBuf;
 
     /// Returns path to config file.
     fn config_path(&self) -> PathBuf {
@@ -157,7 +162,7 @@ pub trait Validator: Sized {
 
         std::process::Command::new("cp")
             .arg("-r")
-            .arg(self.data_dir().path().to_path_buf())
+            .arg(self.data_dir())
             .arg(chain_cache)
             .output()
             .unwrap()
@@ -202,7 +207,7 @@ pub struct Zcashd {
     /// Logs directory
     logs_dir: TempDir,
     /// Data directory
-    data_dir: TempDir,
+    data_dir: PathBuf,
     /// Zcash cli binary location
     zcash_cli_bin: Option<PathBuf>,
     /// Network upgrade activation heights
@@ -234,10 +239,13 @@ impl Validator for Zcashd {
 
     async fn launch(config: Self::Config) -> Result<Self, LaunchError> {
         let logs_dir = tempfile::tempdir().unwrap();
-        let data_dir = tempfile::tempdir().unwrap();
+        let data_dir = match config.data_dir {
+            Some(dir) => dir,
+            None => tempfile::tempdir().unwrap().into_path(),
+        };
 
         if let Some(cache) = config.chain_cache.clone() {
-            Self::load_chain(cache, data_dir.path().to_path_buf(), Network::Regtest);
+            Self::load_chain(cache, data_dir.clone(), Network::Regtest);
         }
 
         let port = network::pick_unused_port(config.rpc_port);
@@ -264,7 +272,7 @@ impl Validator for Zcashd {
                 .as_str(),
                 format!(
                     "--datadir={}",
-                    data_dir.path().to_str().expect("should be valid UTF-8")
+                    data_dir.to_str().expect("should be valid UTF-8")
                 )
                 .as_str(),
                 "-debug=1",
@@ -352,7 +360,7 @@ impl Validator for Zcashd {
         &self.logs_dir
     }
 
-    fn data_dir(&self) -> &TempDir {
+    fn data_dir(&self) -> &PathBuf {
         &self.data_dir
     }
 
@@ -405,7 +413,7 @@ pub struct Zebrad {
     /// Logs directory
     logs_dir: TempDir,
     /// Data directory
-    data_dir: TempDir,
+    data_dir: PathBuf,
     /// Network upgrade activation heights
     activation_heights: network::ActivationHeights,
     /// RPC request client
@@ -421,17 +429,20 @@ impl Validator for Zebrad {
 
     async fn launch(config: Self::Config) -> Result<Self, LaunchError> {
         let logs_dir = tempfile::tempdir().unwrap();
-        let data_dir = tempfile::tempdir().unwrap();
+        let data_dir = match config.data_dir {
+            Some(dir) => dir,
+            None => tempfile::tempdir().unwrap().into_path(),
+        };
 
         if !matches!(config.network, Network::Regtest) && config.chain_cache.is_none() {
             panic!("chain cache must be specified when not using a regtest network!")
         }
 
         let cache_dir = if let Some(cache) = config.chain_cache.clone() {
-            Self::load_chain(cache.clone(), data_dir.path().to_path_buf(), config.network);
+            Self::load_chain(cache.clone(), data_dir.clone(), config.network);
             cache
         } else {
-            data_dir.path().to_path_buf()
+            data_dir.clone()
         };
 
         let network_listen_port = network::pick_unused_port(config.network_listen_port);
@@ -587,7 +598,7 @@ impl Validator for Zebrad {
         &self.logs_dir
     }
 
-    fn data_dir(&self) -> &TempDir {
+    fn data_dir(&self) -> &PathBuf {
         &self.data_dir
     }
 

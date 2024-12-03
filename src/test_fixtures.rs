@@ -63,6 +63,7 @@ pub async fn generate_zebrad_large_chain_cache(
             activation_heights: network::ActivationHeights::default(),
             miner_address: ZEBRAD_DEFAULT_MINER,
             chain_cache: None,
+            data_dir: None,
             network: Network::Regtest,
         },
     )
@@ -98,6 +99,7 @@ pub async fn generate_zcashd_chain_cache(
             activation_heights: network::ActivationHeights::default(),
             miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
             chain_cache: None,
+            data_dir: None,
         },
     )
     .await;
@@ -235,6 +237,7 @@ pub async fn get_lightd_info(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -340,6 +343,7 @@ pub async fn get_latest_block(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -403,6 +407,7 @@ pub async fn get_block(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -463,6 +468,7 @@ pub async fn get_block_out_of_bounds(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -524,6 +530,7 @@ pub async fn get_block_nullifiers(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -592,6 +599,7 @@ pub async fn get_block_range_nullifiers(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -674,6 +682,7 @@ pub async fn get_block_range_nullifiers_reverse(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -756,6 +765,7 @@ pub async fn get_block_range_lower(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -838,6 +848,7 @@ pub async fn get_block_range_upper(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -920,6 +931,7 @@ pub async fn get_block_range_reverse(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -1002,6 +1014,7 @@ pub async fn get_block_range_out_of_bounds(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -1105,6 +1118,7 @@ pub async fn get_transaction(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -1199,6 +1213,7 @@ pub async fn send_transaction(
             activation_heights: network::ActivationHeights::default(),
             miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
             chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+            data_dir: None,
         },
     )
     .await;
@@ -1254,6 +1269,7 @@ pub async fn send_transaction(
             activation_heights: network::ActivationHeights::default(),
             miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
             chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+            data_dir: None,
         },
     )
     .await;
@@ -1339,6 +1355,7 @@ pub async fn get_taddress_txids_all(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -1451,6 +1468,7 @@ pub async fn get_taddress_txids_lower(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -1563,6 +1581,7 @@ pub async fn get_taddress_txids_upper(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -1675,6 +1694,7 @@ pub async fn get_taddress_balance(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -1746,6 +1766,7 @@ pub async fn get_taddress_balance_stream(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -1819,6 +1840,7 @@ pub async fn get_mempool_tx(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -1961,6 +1983,7 @@ pub async fn get_mempool_stream_zingolib_mempool_monitor(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -2133,6 +2156,7 @@ pub async fn get_mempool_stream(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -2464,6 +2488,7 @@ pub async fn get_tree_state_by_height(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -2532,6 +2557,7 @@ pub async fn get_tree_state_by_hash(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -2610,6 +2636,7 @@ pub async fn get_tree_state_out_of_bounds(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -2671,6 +2698,7 @@ pub async fn get_latest_tree_state(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -2751,6 +2779,7 @@ pub async fn get_subtree_roots_sapling(
         activation_heights: network::ActivationHeights::default(),
         miner_address: ZEBRAD_DEFAULT_MINER,
         chain_cache: Some(utils::chain_cache_dir().join("get_subtree_roots_sapling")),
+        data_dir: None,
         network,
     })
     .await
@@ -2849,6 +2878,7 @@ pub async fn get_subtree_roots_orchard(
         activation_heights: network::ActivationHeights::default(),
         miner_address: ZEBRAD_DEFAULT_MINER,
         chain_cache: Some(utils::chain_cache_dir().join("get_subtree_roots_orchard")),
+        data_dir: None,
         network,
     })
     .await
@@ -2930,6 +2960,7 @@ pub async fn get_address_utxos_all(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -3003,6 +3034,7 @@ pub async fn get_address_utxos_lower(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -3077,6 +3109,7 @@ pub async fn get_address_utxos_upper(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -3151,6 +3184,7 @@ pub async fn get_address_utxos_out_of_bounds(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -3224,6 +3258,7 @@ pub async fn get_address_utxos_stream_all(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -3305,6 +3340,7 @@ pub async fn get_address_utxos_stream_lower(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -3387,6 +3423,7 @@ pub async fn get_address_utxos_stream_upper(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -3469,6 +3506,7 @@ pub async fn get_address_utxos_stream_out_of_bounds(
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests")),
+        data_dir: None,
     })
     .await
     .unwrap();

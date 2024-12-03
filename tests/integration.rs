@@ -34,6 +34,7 @@ async fn launch_zcashd() {
         activation_heights: network::ActivationHeights::default(),
         miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
         chain_cache: None,
+        data_dir: None,
     })
     .await
     .unwrap();
@@ -52,6 +53,7 @@ async fn launch_zebrad() {
         activation_heights: network::ActivationHeights::default(),
         miner_address: ZEBRAD_DEFAULT_MINER,
         chain_cache: None,
+        data_dir: None,
         network: network::Network::Regtest,
     })
     .await
@@ -71,6 +73,7 @@ async fn launch_zebrad_with_cache() {
         activation_heights: network::ActivationHeights::default(),
         miner_address: ZEBRAD_DEFAULT_MINER,
         chain_cache: Some(utils::chain_cache_dir().join("client_rpc_tests_large")),
+        data_dir: Some(utils::chain_cache_dir().join("client_rpc_tests_large")),
         network: network::Network::Regtest,
     })
     .await
@@ -98,6 +101,7 @@ async fn launch_localnet_zainod_zcashd() {
             activation_heights: network::ActivationHeights::default(),
             miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
             chain_cache: None,
+            data_dir: None,
         },
     )
     .await;
@@ -125,6 +129,7 @@ async fn launch_localnet_zainod_zebrad() {
             activation_heights: network::ActivationHeights::default(),
             miner_address: ZEBRAD_DEFAULT_MINER,
             chain_cache: None,
+            data_dir: None,
             network: network::Network::Regtest,
         },
     )
@@ -153,6 +158,7 @@ async fn launch_localnet_lightwalletd_zcashd() {
             activation_heights: network::ActivationHeights::default(),
             miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
             chain_cache: None,
+            data_dir: None,
         },
     )
     .await;
@@ -181,6 +187,7 @@ async fn launch_localnet_lightwalletd_zebrad() {
             activation_heights: network::ActivationHeights::default(),
             miner_address: ZEBRAD_DEFAULT_MINER,
             chain_cache: None,
+            data_dir: None,
             network: network::Network::Regtest,
         },
     )
@@ -210,6 +217,7 @@ async fn zainod_basic_send() {
             activation_heights: network::ActivationHeights::default(),
             miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
             chain_cache: None,
+            data_dir: None,
         },
     )
     .await;
@@ -266,6 +274,7 @@ async fn lightwalletd_basic_send() {
             activation_heights: network::ActivationHeights::default(),
             miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
             chain_cache: None,
+            data_dir: None,
         },
     )
     .await;
