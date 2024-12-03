@@ -274,6 +274,7 @@ async fn zainod_zebrad_basic_send() {
             activation_heights: network::ActivationHeights::default(),
             miner_address: ZEBRAD_DEFAULT_MINER,
             chain_cache: None,
+            data_dir: None,
             network: network::Network::Regtest,
         },
     )
@@ -397,6 +398,7 @@ async fn lightwalletd_zebrad_basic_send() {
             activation_heights: network::ActivationHeights::default(),
             miner_address: ZEBRAD_DEFAULT_MINER,
             chain_cache: None,
+            data_dir: None,
             network: network::Network::Regtest,
         },
     )
