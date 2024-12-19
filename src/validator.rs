@@ -463,11 +463,11 @@ impl Validator for Zebrad {
         command
             .args([
                 "--config",
-                format!(
-                    "{}",
-                    config_file_path.to_str().expect("should be valid UTF-8")
-                )
-                .as_str(),
+                config_file_path
+                    .to_str()
+                    .expect("should be valid UTF-8")
+                    .to_string()
+                    .as_str(),
                 "start",
             ])
             .stdout(std::process::Stdio::piped())
