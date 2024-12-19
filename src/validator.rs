@@ -90,7 +90,7 @@ impl Default for ZebradConfig {
             network_listen_port: None,
             rpc_listen_port: None,
             activation_heights: network::ActivationHeights::default(),
-            miner_address: &ZEBRAD_DEFAULT_MINER,
+            miner_address: ZEBRAD_DEFAULT_MINER,
             chain_cache: None,
             network: Network::Regtest,
         }
