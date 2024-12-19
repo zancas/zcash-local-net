@@ -157,7 +157,7 @@ pub trait Validator: Sized {
 
         std::process::Command::new("cp")
             .arg("-r")
-            .arg(self.data_dir().path().to_path_buf())
+            .arg(self.data_dir().path())
             .arg(chain_cache)
             .output()
             .unwrap()
