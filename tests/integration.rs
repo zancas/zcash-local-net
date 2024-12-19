@@ -1,11 +1,6 @@
 use std::path::PathBuf;
 
-use zcash_protocol::{PoolType, ShieldedProtocol};
-
-use zingolib::{
-    testutils::lightclient::{from_inputs, get_base_address},
-    testvectors::REG_O_ADDR_FROM_ABANDONART,
-};
+use zingolib::testvectors::REG_O_ADDR_FROM_ABANDONART;
 
 use zcash_local_net::{
     indexer::{Indexer as _, Lightwalletd, LightwalletdConfig, Zainod, ZainodConfig},
@@ -681,27 +676,43 @@ mod client_rpcs {
         .await;
     }
 }
+#[cfg(feature = "client")]
 mod send {
-    #![cfg(feature = "client")]
-    use super::*;
-    use zcash_local_net::client;
+    use std::path::PathBuf;
+
+    use zcash_local_net::{
+        client,
+        indexer::{Indexer as _, Lightwalletd, LightwalletdConfig, Zainod, ZainodConfig},
+        network,
+        validator::{
+            Validator as _, Zcashd, ZcashdConfig, Zebrad, ZebradConfig, ZEBRAD_DEFAULT_MINER,
+        },
+        LocalNet,
+    };
+    use zcash_protocol::{PoolType, ShieldedProtocol};
+    use zingolib::{
+        testutils::lightclient::{from_inputs, get_base_address},
+        testvectors::REG_O_ADDR_FROM_ABANDONART,
+    };
+
+    use crate::{LIGHTWALLETD_BIN, ZAINOD_BIN, ZCASHD_BIN, ZCASH_CLI_BIN, ZEBRAD_BIN};
     #[tokio::test]
     async fn zainod_zcashd_basic_send() {
         tracing_subscriber::fmt().init();
 
-        let local_net = localnet::<zainod, zcashd>::launch(
-            zainodconfig {
-                zainod_bin: zainod_bin,
-                listen_port: none,
+        let local_net = LocalNet::<Zainod, Zcashd>::launch(
+            ZainodConfig {
+                zainod_bin: ZAINOD_BIN,
+                listen_port: None,
                 validator_port: 0,
             },
-            zcashdconfig {
-                zcashd_bin: zcashd_bin,
-                zcash_cli_bin: zcash_cli_bin,
-                rpc_port: none,
-                activation_heights: network::activationheights::default(),
-                miner_address: some(reg_o_addr_from_abandonart),
-                chain_cache: none,
+            ZcashdConfig {
+                zcashd_bin: ZCASHD_BIN,
+                zcash_cli_bin: ZCASH_CLI_BIN,
+                rpc_port: None,
+                activation_heights: network::ActivationHeights::default(),
+                miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
+                chain_cache: None,
             },
         )
         .await;
@@ -717,9 +728,9 @@ mod send {
         from_inputs::quick_send(
             &faucet,
             vec![(
-                &get_base_address(&recipient, pooltype::shielded(shieldedprotocol::orchard)).await,
+                &get_base_address(&recipient, PoolType::Shielded(ShieldedProtocol::Orchard)).await,
                 100_000,
-                none,
+                None,
             )],
         )
         .await
@@ -729,7 +740,7 @@ mod send {
         recipient.do_sync(false).await.unwrap();
 
         let recipient_balance = recipient.do_balance().await;
-        assert_eq!(recipient_balance.verified_orchard_balance, some(100_000));
+        assert_eq!(recipient_balance.verified_orchard_balance, Some(100_000));
 
         local_net.validator().print_stdout();
         local_net.validator().print_stderr();
@@ -745,20 +756,20 @@ mod send {
     async fn zainod_zebrad_basic_send() {
         tracing_subscriber::fmt().init();
 
-        let local_net = localnet::<zainod, zebrad>::launch(
-            zainodconfig {
-                zainod_bin: zainod_bin,
-                listen_port: none,
+        let local_net = LocalNet::<Zainod, Zebrad>::launch(
+            ZainodConfig {
+                zainod_bin: ZAINOD_BIN,
+                listen_port: None,
                 validator_port: 0,
             },
-            zebradconfig {
-                zebrad_bin: zebrad_bin,
-                network_listen_port: none,
-                rpc_listen_port: none,
-                activation_heights: network::activationheights::default(),
-                miner_address: zebrad_default_miner,
-                chain_cache: none,
-                network: network::network::regtest,
+            ZebradConfig {
+                zebrad_bin: ZEBRAD_BIN,
+                network_listen_port: None,
+                rpc_listen_port: None,
+                activation_heights: network::ActivationHeights::default(),
+                miner_address: ZEBRAD_DEFAULT_MINER,
+                chain_cache: None,
+                network: network::Network::Regtest,
             },
         )
         .await;
@@ -779,9 +790,9 @@ mod send {
         from_inputs::quick_send(
             &faucet,
             vec![(
-                &get_base_address(&recipient, pooltype::shielded(shieldedprotocol::orchard)).await,
+                &get_base_address(&recipient, PoolType::Shielded(ShieldedProtocol::Orchard)).await,
                 100_000,
-                none,
+                None,
             )],
         )
         .await
@@ -791,7 +802,7 @@ mod send {
         recipient.do_sync(false).await.unwrap();
 
         let recipient_balance = recipient.do_balance().await;
-        assert_eq!(recipient_balance.verified_orchard_balance, some(100_000));
+        assert_eq!(recipient_balance.verified_orchard_balance, Some(100_000));
 
         local_net.validator().print_stdout();
         local_net.validator().print_stderr();
@@ -807,19 +818,19 @@ mod send {
     async fn lightwalletd_zcashd_basic_send() {
         tracing_subscriber::fmt().init();
 
-        let local_net = localnet::<lightwalletd, zcashd>::launch(
-            lightwalletdconfig {
-                lightwalletd_bin: lightwalletd_bin,
-                listen_port: none,
-                zcashd_conf: pathbuf::new(),
+        let local_net = LocalNet::<Lightwalletd, Zcashd>::launch(
+            LightwalletdConfig {
+                lightwalletd_bin: LIGHTWALLETD_BIN,
+                listen_port: None,
+                zcashd_conf: PathBuf::new(),
             },
-            zcashdconfig {
-                zcashd_bin: zcashd_bin,
-                zcash_cli_bin: zcash_cli_bin,
-                rpc_port: none,
-                activation_heights: network::activationheights::default(),
-                miner_address: some(reg_o_addr_from_abandonart),
-                chain_cache: none,
+            ZcashdConfig {
+                zcashd_bin: ZCASHD_BIN,
+                zcash_cli_bin: ZCASH_CLI_BIN,
+                rpc_port: None,
+                activation_heights: network::ActivationHeights::default(),
+                miner_address: Some(REG_O_ADDR_FROM_ABANDONART),
+                chain_cache: None,
             },
         )
         .await;
@@ -835,9 +846,9 @@ mod send {
         from_inputs::quick_send(
             &faucet,
             vec![(
-                &get_base_address(&recipient, pooltype::shielded(shieldedprotocol::orchard)).await,
+                &get_base_address(&recipient, PoolType::Shielded(ShieldedProtocol::Orchard)).await,
                 100_000,
-                none,
+                None,
             )],
         )
         .await
@@ -847,7 +858,7 @@ mod send {
         recipient.do_sync(false).await.unwrap();
 
         let recipient_balance = recipient.do_balance().await;
-        assert_eq!(recipient_balance.verified_orchard_balance, some(100_000));
+        assert_eq!(recipient_balance.verified_orchard_balance, Some(100_000));
 
         local_net.validator().print_stdout();
         local_net.validator().print_stderr();
@@ -864,20 +875,20 @@ mod send {
     async fn lightwalletd_zebrad_basic_send() {
         tracing_subscriber::fmt().init();
 
-        let local_net = localnet::<lightwalletd, zebrad>::launch(
-            lightwalletdconfig {
-                lightwalletd_bin: lightwalletd_bin,
-                listen_port: none,
-                zcashd_conf: pathbuf::new(),
+        let local_net = LocalNet::<Lightwalletd, Zebrad>::launch(
+            LightwalletdConfig {
+                lightwalletd_bin: LIGHTWALLETD_BIN,
+                listen_port: None,
+                zcashd_conf: PathBuf::new(),
             },
-            zebradconfig {
-                zebrad_bin: zebrad_bin,
-                network_listen_port: none,
-                rpc_listen_port: none,
-                activation_heights: network::activationheights::default(),
-                miner_address: zebrad_default_miner,
-                chain_cache: none,
-                network: network::network::regtest,
+            ZebradConfig {
+                zebrad_bin: ZEBRAD_BIN,
+                network_listen_port: None,
+                rpc_listen_port: None,
+                activation_heights: network::ActivationHeights::default(),
+                miner_address: ZEBRAD_DEFAULT_MINER,
+                chain_cache: None,
+                network: network::Network::Regtest,
             },
         )
         .await;
@@ -898,9 +909,9 @@ mod send {
         from_inputs::quick_send(
             &faucet,
             vec![(
-                &get_base_address(&recipient, pooltype::shielded(shieldedprotocol::orchard)).await,
+                &get_base_address(&recipient, PoolType::Shielded(ShieldedProtocol::Orchard)).await,
                 100_000,
-                none,
+                None,
             )],
         )
         .await
@@ -910,7 +921,7 @@ mod send {
         recipient.do_sync(false).await.unwrap();
 
         let recipient_balance = recipient.do_balance().await;
-        assert_eq!(recipient_balance.verified_orchard_balance, some(100_000));
+        assert_eq!(recipient_balance.verified_orchard_balance, Some(100_000));
 
         local_net.validator().print_stdout();
         local_net.validator().print_stderr();
