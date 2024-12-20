@@ -1,6 +1,6 @@
 use std::path::PathBuf;
 
-use zingolib::testvectors::REG_O_ADDR_FROM_ABANDONART;
+use testvectors::REG_O_ADDR_FROM_ABANDONART;
 
 use zcash_local_net::{
     indexer::{Indexer as _, Lightwalletd, LightwalletdConfig, Zainod, ZainodConfig},
