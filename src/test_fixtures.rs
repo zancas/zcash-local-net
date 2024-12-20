@@ -2727,7 +2727,7 @@ pub async fn get_latest_tree_state(
 /// `network` should match the network type of the cached chain.
 ///
 /// Example directory tree:
-/// ```
+/// ```BASH
 /// zcash-local-net/chain_cache/get_subtree_roots_sapling/
 /// └── state
 ///     └── v26
@@ -2827,7 +2827,7 @@ pub async fn get_subtree_roots_sapling(
 ///
 /// Example directory tree:
 /// zcash-local-net/chain_cache/get_subtree_roots_orchard/
-/// ```
+/// ```BASH
 /// └── state
 ///     └── v26
 ///         └── testnet
