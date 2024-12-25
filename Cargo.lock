@@ -4018,8 +4018,8 @@ dependencies = [
  "tracing-subscriber",
  "zcash_primitives 0.19.0 (git+https://github.com/zingolabs/librustzcash.git?tag=zcash_client_sqlite-0.12.1_plus_zingolabs_changes-test_2)",
  "zcash_protocol 0.4.0",
- "zebra-chain",
- "zebra-node-services",
+ "zebra-chain 1.0.0-beta.42",
+ "zebra-node-services 1.0.0-beta.43",
  "zebra-rpc",
 ]
 
@@ -4230,6 +4230,60 @@ dependencies = [
 ]
 
 [[package]]
+name = "zebra-chain"
+version = "1.0.0-beta.43"
+source = "git+https://github.com/ZcashFoundation/zebra.git?tag=v2.1.0#179aaa4c4f4c39ec2a82f1489a50306955e8c98a"
+dependencies = [
+ "bitflags 2.6.0",
+ "bitflags-serde-legacy",
+ "bitvec",
+ "blake2b_simd",
+ "blake2s_simd",
+ "bridgetree",
+ "bs58",
+ "byteorder",
+ "chrono",
+ "dirs",
+ "ed25519-zebra",
+ "equihash 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "futures",
+ "group",
+ "halo2_proofs",
+ "hex",
+ "humantime",
+ "incrementalmerkletree",
+ "itertools 0.13.0",
+ "jubjub",
+ "lazy_static",
+ "num-integer",
+ "orchard",
+ "primitive-types",
+ "rand_core 0.6.4",
+ "rayon",
+ "reddsa",
+ "redjubjub",
+ "ripemd",
+ "sapling-crypto",
+ "secp256k1",
+ "serde",
+ "serde-big-array",
+ "serde_with",
+ "sha2",
+ "static_assertions",
+ "tempfile",
+ "thiserror",
+ "tracing",
+ "uint 0.10.0",
+ "x25519-dalek",
+ "zcash_address 0.6.2",
+ "zcash_encoding 0.2.2",
+ "zcash_history",
+ "zcash_note_encryption",
+ "zcash_primitives 0.19.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "zcash_protocol 0.4.3",
+]
+
+[[package]]
 name = "zebra-consensus"
 version = "1.0.0-beta.42"
 source = "git+https://github.com/ZcashFoundation/zebra.git?tag=v2.0.1#fef500a72840d4b7c89d68e14980eeda43869873"
@@ -4259,8 +4313,8 @@ dependencies = [
  "tracing-futures",
  "wagyu-zcash-parameters",
  "zcash_proofs",
- "zebra-chain",
- "zebra-node-services",
+ "zebra-chain 1.0.0-beta.42",
+ "zebra-node-services 1.0.0-beta.42",
  "zebra-script",
  "zebra-state",
 ]
@@ -4298,7 +4352,7 @@ dependencies = [
  "tracing",
  "tracing-error",
  "tracing-futures",
- "zebra-chain",
+ "zebra-chain 1.0.0-beta.42",
 ]
 
 [[package]]
@@ -4312,7 +4366,21 @@ dependencies = [
  "serde",
  "serde_json",
  "tokio",
- "zebra-chain",
+ "zebra-chain 1.0.0-beta.42",
+]
+
+[[package]]
+name = "zebra-node-services"
+version = "1.0.0-beta.43"
+source = "git+https://github.com/ZcashFoundation/zebra.git?tag=v2.1.0#179aaa4c4f4c39ec2a82f1489a50306955e8c98a"
+dependencies = [
+ "color-eyre",
+ "jsonrpc-core",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "tokio",
+ "zebra-chain 1.0.0-beta.43",
 ]
 
 [[package]]
@@ -4338,10 +4406,10 @@ dependencies = [
  "tracing",
  "zcash_address 0.6.2",
  "zcash_primitives 0.19.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "zebra-chain",
+ "zebra-chain 1.0.0-beta.42",
  "zebra-consensus",
  "zebra-network",
- "zebra-node-services",
+ "zebra-node-services 1.0.0-beta.42",
  "zebra-script",
  "zebra-state",
 ]
@@ -4353,7 +4421,7 @@ source = "git+https://github.com/ZcashFoundation/zebra.git?tag=v2.0.1#fef500a728
 dependencies = [
  "thiserror",
  "zcash_script",
- "zebra-chain",
+ "zebra-chain 1.0.0-beta.42",
 ]
 
 [[package]]
@@ -4385,7 +4453,7 @@ dependencies = [
  "tokio",
  "tower",
  "tracing",
- "zebra-chain",
+ "zebra-chain 1.0.0-beta.42",
 ]
 
 [[package]]
