@@ -8,10 +8,14 @@ use portpicker::Port;
 
 use crate::network::{ActivationHeights, Network};
 
-pub(crate) const ZCASHD_FILENAME: &str = "zcash.conf";
-pub(crate) const ZEBRAD_FILENAME: &str = "zebrad.toml";
-pub(crate) const ZAINOD_FILENAME: &str = "zindexer.toml";
-pub(crate) const LIGHTWALLETD_FILENAME: &str = "lightwalletd.yml";
+/// basename for component conf file
+pub const ZCASHD_FILENAME: &str = "zcash.conf";
+/// basename for component conf file
+pub const ZEBRAD_FILENAME: &str = "zebrad.toml";
+/// basename for component conf file
+pub const ZAINOD_FILENAME: &str = "zindexer.toml";
+/// basename for component conf file
+pub const LIGHTWALLETD_FILENAME: &str = "lightwalletd.yml";
 
 /// Writes the Zcashd config file to the specified config directory.
 /// Returns the path to the config file.
