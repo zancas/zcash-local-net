@@ -47,7 +47,7 @@ use indexer::{
 };
 use validator::{Validator, Zcashd, ZcashdConfig, Zebrad, ZebradConfig};
 
-pub(crate) mod config;
+pub mod config;
 pub mod error;
 pub mod indexer;
 pub(crate) mod launch;
