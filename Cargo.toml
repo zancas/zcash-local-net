@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [features]
-client = [ "dep:zcash_client_backend", "dep:zingo-netutils", "dep:zingolib" ]
+client = [ "zcash_client_backend", "zingo-netutils", "zingolib" ]
 test_fixtures = [ "client", "dep:tonic", "dep:tokio", "dep:tokio-stream"]
 
 [dependencies]
