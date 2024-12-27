@@ -63,6 +63,7 @@ pub struct ZcashdConfig {
 /// Use `activation_heights` to specify custom network upgrade activation heights
 ///
 /// Use `miner_address` to specify the target address for the block rewards when blocks are generated.
+#[derive(Debug)]
 pub struct ZebradConfig {
     /// Zebrad binary location
     pub zebrad_bin: Option<PathBuf>,

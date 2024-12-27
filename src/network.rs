@@ -6,7 +6,7 @@ use zcash_primitives::consensus::BlockHeight;
 pub(crate) const LOCALHOST_IPV4: &str = "http://127.0.0.1";
 
 /// Network types
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub enum Network {
     /// Regtest
     Regtest,
