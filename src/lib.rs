@@ -29,7 +29,7 @@
 //!
 //! Pre-requisities for running integration tests successfully:
 //! - Build the Zcashd, Zebrad, Zainod and Lightwalletd binaries and add to $PATH.
-//! - In order to geneate a cached blockchain from zebrad run:
+//! - In order to generate a cached blockchain from zebrad run:
 //! ```BASH
 //! cargo nextest run generate_zebrad_large_chain_cache --run-ignored ignored-only --features test_fixtures
 //! ```
