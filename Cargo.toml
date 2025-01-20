@@ -5,6 +5,7 @@ edition = "2021"
 resolver = "2"
 
 [features]
+default = [ "test_fixtures"]
 client = [ "dep:zcash_client_backend", "dep:zingo-netutils", "dep:zingolib" ]
 test_fixtures = [ "client", "dep:tonic", "dep:tokio", "dep:tokio-stream"]
 
