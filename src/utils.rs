@@ -16,6 +16,7 @@ pub fn chain_cache_dir() -> PathBuf {
 }
 
 /// Testing binaries: these are managed and fetched automagically by fetcher.rs
+#[allow(missing_docs)]
 pub enum TestingBinary {
     Lightwalletd,
     Zainod,
