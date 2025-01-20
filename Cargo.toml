@@ -6,8 +6,9 @@ resolver = "2"
 build="src/build.rs"
 
 [features]
-client = [ "dep:zcash_client_backend", "dep:zingo-netutils", "dep:zingolib" ]
+default = [ "test_fixtures" ]
 test_fixtures = [ "client", "dep:tonic", "dep:tokio", "dep:tokio-stream"]
+client = [ "dep:zcash_client_backend", "dep:zingo-netutils", "dep:zingolib" ]
 
 [dependencies]
 # Zcash
