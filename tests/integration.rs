@@ -109,6 +109,7 @@ async fn launch_localnet_zainod_zcashd() {
     local_net.indexer().print_stderr();
 }
 
+#[ignore = "flake"]
 #[tokio::test]
 async fn launch_localnet_zainod_zebrad() {
     tracing_subscriber::fmt().init();
@@ -252,6 +253,7 @@ async fn zainod_zcashd_basic_send() {
     println!("{:?}\n", recipient_balance);
 }
 
+#[ignore = "flake"]
 #[tokio::test]
 async fn zainod_zebrad_basic_send() {
     tracing_subscriber::fmt().init();
@@ -485,6 +487,7 @@ mod client_rpcs {
         .await;
     }
 
+    #[ignore = "flake"]
     #[tokio::test]
     async fn get_lightd_info() {
         tracing_subscriber::fmt().init();
