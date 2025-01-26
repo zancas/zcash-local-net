@@ -54,12 +54,12 @@ serde_json = "1.0.132"
 # Encoding
 hex = "0.4.3"
 
-# Runtime
-tokio = { version = "1.25.0", optional = true }
-
 [dev-dependencies]
 # Lightclient
 zingolib = { git = "https://github.com/zingolabs/zingolib.git", tag = "zaino_dep_004", features = [ "test-elevation" ] }
+# Runtime
+tokio = { version = "1.25.0" }
+
 
 [build-dependencies]
 hex = "0.4.3"
