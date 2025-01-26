@@ -8,7 +8,8 @@ use portpicker::Port;
 
 use crate::network::{ActivationHeights, Network};
 
-pub(crate) const ZCASHD_FILENAME: &str = "zcash.conf";
+/// Used in subtree roots tests in zaino_testutils.  Fix later.
+pub const ZCASHD_FILENAME: &str = "zcash.conf";
 pub(crate) const ZEBRAD_FILENAME: &str = "zebrad.toml";
 pub(crate) const ZAINOD_FILENAME: &str = "zindexer.toml";
 pub(crate) const LIGHTWALLETD_FILENAME: &str = "lightwalletd.yml";
