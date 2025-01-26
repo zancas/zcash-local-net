@@ -49,9 +49,6 @@ pub mod network;
 pub mod utils;
 pub mod validator;
 
-#[cfg(feature = "test_fixtures")]
-pub mod test_fixtures;
-
 #[cfg(feature = "client")]
 pub mod client;
 
